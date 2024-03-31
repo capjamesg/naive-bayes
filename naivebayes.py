@@ -41,6 +41,10 @@ def naive_bayes_classifier(text):
     for class_name, probs in class_probs.items():
         class_probs[class_name] = np.prod(probs)
 
+    # use the prior probability of each class
+    for class_name in classes:
+        class_probs[class_name] = class_probs[class_name] * len(word_counts_by_class[class_name]) / len(df)
+
     return max(class_probs, key=class_probs.get), max(class_probs.values())
 
 
